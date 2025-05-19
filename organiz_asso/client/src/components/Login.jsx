@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { useState } from "react";
+import "../css/Login.css"
 
 function Login(){
 
@@ -11,16 +12,22 @@ function Login(){
     
     
     return (
-    <div className="container">
-        <div className="LoginHeader" id="LoginHeader">Login</div>
-        <form className='LoginForm'>
-            <label htmlFor='Username'>Username</label>
-            <input type='text' className='LoginInput' id='Username' name="Username" value={username} onChange={U_handleChange} required/>
-            <label htmlFor='Password'>Mot de passe</label>
-            <input type='password' className='LoginInput' name='Password' value={password} onChange={P_handleChange} required/>
-            <button className='loginButton' type='submit'>LogIn</button>
-            <p>Pas de compte ? <Link to="/signup">Créer un compte</Link></p>
-        </form>
+    <div className="login">
+        <div className="container">
+            <h1 className="LoginHeader" id="LoginHeader">Login</h1>
+            <form className='LoginForm'>
+                <div className="LoginInput">
+                    <input type='text' id='Username' name="Username" value={username} onChange={U_handleChange} required/>
+                    <label htmlFor='Username'>Username</label>
+                </div>
+                <div className="LoginInput">
+                    <input type='password'name='Password' value={password} onChange={P_handleChange} required/>
+                    <label htmlFor='Password'>Mot de passe</label>
+                </div>
+                <button className='loginButton' type='submit'>LogIn</button>
+                <p>Pas de compte ? <Link to="/signup">Créer un compte</Link></p>
+            </form>
+        </div>
     </div>
 
     )
