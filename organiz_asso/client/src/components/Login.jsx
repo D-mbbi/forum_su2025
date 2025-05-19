@@ -24,7 +24,7 @@ function Login(){
                     <input type='password'name='Password' value={password} onChange={P_handleChange} required/>
                     <label htmlFor='Password'>Mot de passe</label>
                 </div>
-                <button className='loginButton' type='submit'>LogIn</button>
+                <button className='loginButton' type='submit'>Se connecter</button>
                 <p>Pas de compte ? <Link to="/signup">Créer un compte</Link></p>
             </form>
         </div>
