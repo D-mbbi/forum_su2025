@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { Link } from "react-router";
 import { useState,useEffect } from "react";
 import { useNavigate } from "react-router";
@@ -16,13 +17,15 @@ function SignUp(){
     const P2_handleChange = (e) => setPassword2(e.target.value);
     const navigate = useNavigate();
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         if (password != password2){
             alert("Les mots de passes doivent correspondre")
             setPassword2("")
             setValidForm(false);
         }else{
-            setValidForm(true)
+            setValidForm(true);
+            axios.post('/api/auth/signup', {"username": username, "password": password}).then(res => console.log(res.data));
         }
 
     }
@@ -38,7 +41,7 @@ function SignUp(){
     <div className="signup">
         <div className="container">
             <h1 className="SignUpHeader" id="SignUpHeader">SignUp</h1>
-            <form className='SignUpForm' onSubmit={handleSubmit}>
+            <form method='POST' className='SignUpForm' onSubmit={handleSubmit}>
                 <div className="SignUpInput">
                     <input type='text' id='Username' name="Username" value={username} onChange={U_handleChange} required/>
                     <label htmlFor='Username'>Username</label>
