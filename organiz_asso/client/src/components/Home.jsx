@@ -4,6 +4,7 @@ import axios from "axios";
 import "../css/Home.css";
 import NavBar from "./NavBar.jsx";
 import MessagesList from "./MessagesList.jsx";
+import MessageForm from "./MessageForm.jsx";
 
 
 function Home() {
@@ -71,6 +72,21 @@ function Home() {
             <div className="container">
                 <h1 className="HomeHeader">Forum</h1>
                 <button onClick={handleLogout} className="logout-button">Se déconnecter</button>
+
+                <MessageForm onPost={(contenu) => {
+                const nouveau = {
+                    id: message.length + 1,
+                    auteur: "Moi",
+                    contenu: contenu,
+                    date: "21/05/2025",
+                    heure: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+                    nbLikes: 0,
+                    isAdmin: false,
+                    comments: 0
+                };
+                setMessages([nouveau, ...message]);
+                }} />
+
                 <MessagesList message={message} />
             </div>
         </div>
