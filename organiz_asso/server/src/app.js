@@ -2,8 +2,12 @@ const express = require('express');
 const mongoose = require("mongoose");
 const authRoutes = require('./routers/auth');
 const homeRoutes = require('./routers/home');
+const userRoutes = require('./routers/user');
+const forumRoutes = require('./routers/forum');
+const publicationRoutes = require('./routers/publication')
 const session = require('express-session');
 const cors = require('cors');
+const publication = require('./entities/publication');
 
 const dbAdress = "mongodb://localhost:27017/org_asso";
 mongoose.connect(
@@ -17,7 +21,7 @@ mongoose.connect(
 const app = express();
 
 app.use(cors({
-  origin: 'http://localhost:8000',
+  origin: process.env.CLIENT_URL,
   credentials: true
 }));
 app.use(express.json());
@@ -28,11 +32,14 @@ app.use(session({
   cookie: {
     secure: false, 
     httpOnly: true,
-    maxAge: 1000 * 60 * 60 * 72
+    maxAge: 1000 * 60 * 60 * 24 * 3
   }
 }));
 app.use('/api/auth',authRoutes);
 app.use('/api/home', homeRoutes);
+app.use('/api/user',userRoutes);
+app.use('/api/forum',forumRoutes);
+app.use('/api/post',publicationRoutes);
 
 
 

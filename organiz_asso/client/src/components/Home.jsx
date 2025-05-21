@@ -6,7 +6,7 @@ import NavBar from "./NavBar.jsx";
 
 function Home() {
 
-    axios.get('http://localhost:8080/api/home',{withCredentials: true})
+    axios.get('/api/home',{withCredentials: true})
     .then()
     .catch((error) =>{
         if (error.response?.status === 401) {
