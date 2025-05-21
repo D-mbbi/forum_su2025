@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import "../css/Login.css"
+import axios from "axios";
 
 function Login(){
 
@@ -13,12 +14,22 @@ function Login(){
     const P_handleChange = (e) => setPassword(e.target.value);
     const navigate = useNavigate();
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         if (username === "" || password === ""){
             alert("Veuillez remplir tous les champs");
             setValidLogin(false);
         } else {
-            setValidLogin(true);
+            axios.post('/api/auth/login',{'username' : username, 'password' : password}, {withCredentials: true})
+            .then(
+                res => {
+                    console.log(res.data);
+                    if(res.status == 200){
+                        setValidLogin(true);
+                    }
+                }
+            )
+            .catch( error => {console.log(error.response.data)});
         }
     }
 
