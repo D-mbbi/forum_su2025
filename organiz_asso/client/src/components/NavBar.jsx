@@ -3,7 +3,7 @@ import SearchBar from "./SearchBar";
 import ProfileButton from "./ProfileButton";
 import "../css/NavBar.css";
 
-function NavBar(){
+function NavBar(props){
 
     return (
         <div className="navbar">
@@ -11,7 +11,7 @@ function NavBar(){
                 <HomeButton />
             </div>
             <div className="navbar-center">
-                <SearchBar />
+                <SearchBar search={props.onSearch}/>
             </div>
             <div className="navbar-right">
                 <ProfileButton />

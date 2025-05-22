@@ -1,9 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../css/SearchBar.css"
 
-function SearchBar(){
+function SearchBar(props){
 
     const [query, setQuery] = useState("");
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            props.search(query); // déclenche la recherche après 400ms d'inactivité
+        }, 400); // ajuste le délai ici
+
+        return () => clearTimeout(timer); // reset si l'utilisateur continue de taper
+    }, [query]);
 
     const handleChange = (e) => {
         setQuery(e.target.value);
@@ -11,7 +19,7 @@ function SearchBar(){
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        alert("Recherche de : " + query);
+        props.search(query);
     }
 
     return (
@@ -22,7 +30,6 @@ function SearchBar(){
                 value={query} 
                 onChange={handleChange} 
                 className="searchInput"
-                required
             />
             <button type="submit" className="searchButton">🔍</button>
         </form>

@@ -12,6 +12,7 @@ function Home() {
 
     const [isAuthChecked, setIsAuthChecked] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [message, setMessages] = useState([]);
 
     useEffect(() => {
     axios.get('/api/forum/public', { withCredentials: true })
@@ -29,7 +30,7 @@ function Home() {
         });
 }, []);
     
-    const [message, setMessages] = useState([]);
+    
     
     
     
@@ -60,6 +61,18 @@ function Home() {
         .catch(err => console.log(err))
     }
 
+    const handleSearch = (query) => {
+        axios.get('api/post/search',{withCredentials : true, params : {'query' : query}})
+        .then(res => {
+            if(res.status != 200){
+                console.error(res.data)
+            }else{
+                setMessages(res.data.posts)
+            }
+        })
+        .catch(err => console.error(err))
+    }
+
     useEffect(() => {
         axios.get('/api/post/getAll/public')
     .then(res => {
@@ -77,7 +90,7 @@ function Home() {
 
     return (
         <div className="home">
-            <NavBar />
+            <NavBar onSearch={handleSearch}/>
             <div className="container">
                 <h1 className="HomeHeader">Forum</h1>
                 <button onClick={handleLogout} className="logout-button">Se déconnecter</button>

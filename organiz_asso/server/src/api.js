@@ -202,15 +202,14 @@ exports.getPostAll = (req,res,next) => {
 
 exports.search = (req,res,next) => {
     // Traitement de la recherche (de "mot1 mot2" => "(mot1)*(mot2)")
-    var query = req.body.search;
+    var query = req.query.query;
     query = query.split(" ");
     //var impair = (query.length % 2 == 1)
     for(word in query){
-        query[word] = ("\\b".concat(query[word])).concat("\\b")
+        query[word] = ("\\b".concat(query[word]))
     }
     query = query.join("|");
     query = "(".concat(query).concat(")")
-
     // ----------
 
     Publication.find({"$or": [ {"content" : RegExp(query,'i')}, {"title" : RegExp(query,'i')} ]})
