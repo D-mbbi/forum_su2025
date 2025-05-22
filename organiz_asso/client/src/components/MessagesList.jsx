@@ -15,8 +15,8 @@ function MessagesList(props) {
                     userID={msg.userID}
                     contenu={msg.content}
                     date={  `${(new Date(msg.date)).getDay().toString().padStart(2, '0')}/${(new Date(msg.date)).getMonth().toString().padStart(2, '0')}/${(new Date(msg.date)).getFullYear().toString()}`   }
-                    heure={`${(new Date(msg.date)).getHours().toString().padStart(2, '0')}/${(new Date(msg.date)).getMinutes().toString().padStart(2, '0')}`}
-                    nbLikes={msg.nbLikes || 0}
+                    heure={`${(new Date(msg.date)).getHours().toString().padStart(2, '0')}:${(new Date(msg.date)).getMinutes().toString().padStart(2, '0')}`}
+                    nbLikes={msg.likes || 0}
                     comments={msg.comments || []}
                 /> : null
             ))}

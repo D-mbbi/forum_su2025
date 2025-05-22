@@ -30,6 +30,10 @@ const publicationSchema = mongoose.Schema({
         type: String, 
         required: true,
         default: process.env.FORUM_PUBLIC
+    },
+    likes: {
+        type: Number,
+        default: 0
     }
 });
 
