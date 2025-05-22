@@ -139,24 +139,61 @@ exports.getForum = (req,res,next) => {
 }
 
 exports.createPost = (req,res,next) => {
-        const post = new Publication({
+    answered = req.body.answeredPostID != null ? req.body.answeredPostID : ""
+    title_ = answered ?  "" : req.body.title
+    const post = new Publication({
             userID: req.session.user.username,
             content: req.body.content,
-            title: req.body.title,
+            title: title_,
             date: new Date(),
+            answeredPostID: answered,
             forumID: req.body.forum
         });
         post.save()
-        .then(() =>
+        .then(() => {
+            if(answered){
+                Publication.findById(answered)
+                .then(ans => {
+                    if(!ans){
+                        return res.status(401).json({"message" : "post introuvable ou inexistant"}) 
+                    }
+                    ans.comments.push(post._id)
+                    ans.save().catch(err => console.log(err))
+                })
+            }
             res.status(201).json({"message" : "Post crée avec succès"})
+        }
         ).catch(error => res.status(400).json({ error }));
 }
 
-exports.getPost = (req,res,next) => {
+exports.getPostID = (req,res,next) => {
     Publication.findById(req.body.id)
     .then(post =>{
         if(!post){
             return res.status(401).json({"message" : "post introuvable ou inexistant"})
+        }
+        return res.status(200).json({post})
+    }
+    ).catch(error => res.status(400).json({ error }));
+}
+
+exports.getPostUser = (req,res,next) => {
+    Publication.find({userID : req.params.user})
+    .then(post =>{
+        if(post.length == 0){
+            return res.status(401).json({"message" : "Aucun post"})
+        }
+        return res.status(200).json({post})
+    }
+    ).catch(error => res.status(400).json({ error }));
+}
+
+exports.getPostAll = (req,res,next) => {
+    place = req.params.forum == 'admin' ? process.env.FORUM_ADMIN : process.env.FORUM_PUBLIC
+    Publication.find({forumID : place})
+    .then(post =>{
+        if(post.length == 0){
+            return res.status(500).json({"message" : "Aucun post publié sur ce forum"})
         }
         return res.status(200).json({post})
     }
@@ -192,7 +229,7 @@ exports.deletePost = (req,res,next) => {
         if(!post){
             return res.status(400).json({message : "Post introuvable"})
         }
-        else if(post.userID != req.session.user.username || !req.session.user.admin){
+        else if(post.userID != req.session.user.username && !req.session.user.admin){
             return res.status(401).json({message : "Vous n'êtes pas l'auteur de ce post"})
         }
         Publication.deleteOne({_id : post._id})
@@ -202,4 +239,14 @@ exports.deletePost = (req,res,next) => {
         .catch(err => res.status(500).json(err))
     })
     .catch(err => res.status(500).json(err))
+}
+
+exports.answerPost = (req,res,next) => {
+    Publication.findById(req.params.id)
+    .then(post => {
+        if(!post){
+            return res.status(400).json({message : "Post introuvable"})
+        }
+        post
+    })
 }

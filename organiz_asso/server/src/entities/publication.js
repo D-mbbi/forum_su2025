@@ -11,7 +11,7 @@ const publicationSchema = mongoose.Schema({
     },
     title:{
         type: String, 
-        required: true
+        default: ""
     },
     date: {
         type: Date,
