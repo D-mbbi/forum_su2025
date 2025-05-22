@@ -8,6 +8,7 @@ function MessagesList(props) {
     return (
         <div className="messagesLists">
             {message.map((msg) => (
+                !msg.answeredPostID ?
                 <Message
                     key={msg._id}
                     msgID={msg._id}
@@ -17,7 +18,7 @@ function MessagesList(props) {
                     heure={`${(new Date(msg.date)).getHours().toString().padStart(2, '0')}/${(new Date(msg.date)).getMinutes().toString().padStart(2, '0')}`}
                     nbLikes={msg.nbLikes || 0}
                     comments={msg.comments || []}
-                />
+                /> : null
             ))}
         </div>
     );
