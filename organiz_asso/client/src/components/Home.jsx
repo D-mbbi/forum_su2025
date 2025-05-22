@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
-import "../css/Home.css";
 import NavBar from "./NavBar.jsx";
 import MessagesList from "./MessagesList.jsx";
 import MessageForm from "./MessageForm.jsx";

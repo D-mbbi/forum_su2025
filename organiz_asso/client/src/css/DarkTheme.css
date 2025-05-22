@@ -1,0 +1,135 @@
+
+:root {
+    --background-color: #121212;
+    --card-bg: #1e1e1e;
+    --text-color: #e0e0e0;
+    --accent-color: #3f51b5;
+    --accent-hover: #5c6bc0;
+    --border-color: #333;
+    --input-bg: #1e1e1e;
+    --input-border: #555;
+    --button-bg: var(--accent-color);
+    --button-hover: var(--accent-hover);
+    --error-color: #f44336;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+/* Container */
+.container {
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+}
+
+/* NavBar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--card-bg);
+    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.navbar input[type="text"] {
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    border: 1px solid var(--input-border);
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+
+/* Message */
+.message {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+.message-user {
+    font-weight: bold;
+    color: var(--accent-color);
+    cursor: pointer;
+}
+
+.message-user:hover {
+    color: var(--accent-hover);
+}
+
+.message-content {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+}
+
+/* Boutons */
+button {
+    background-color: var(--button-bg);
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: var(--button-hover);
+}
+
+.logout-button {
+    float: right;
+    margin-top: 10px;
+}
+
+/* Formulaires */
+input[type="text"], input[type="password"], textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    border: 1px solid var(--input-border);
+    border-radius: 4px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* Commentaires */
+.commentaire {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background-color: #181818;
+    border-left: 2px solid var(--accent-color);
+    border-radius: 4px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

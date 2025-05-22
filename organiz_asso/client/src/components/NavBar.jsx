@@ -1,7 +1,6 @@
 import HomeButton from "./HomeButton";
 import SearchBar from "./SearchBar";
 import ProfileButton from "./ProfileButton";
-import "../css/NavBar.css";
 
 function NavBar(props){
 

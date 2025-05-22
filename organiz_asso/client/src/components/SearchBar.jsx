@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import "../css/SearchBar.css"
-
 function SearchBar(props){
 
     const [query, setQuery] = useState("");

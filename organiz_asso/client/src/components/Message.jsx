@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import CommentForm from "./CommentForm.jsx";
-import "../css/Message.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 

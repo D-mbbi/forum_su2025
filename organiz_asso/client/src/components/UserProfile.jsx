@@ -2,7 +2,6 @@ import { useParams } from "react-router";
 import NavBar from "./NavBar";
 import MessagesList from "./MessagesList";
 import { useState, useEffect } from "react";
-import "../css/UserProfile.css";
 
 function UserProfile(){
 

@@ -1,7 +1,6 @@
 import NavBar from "./NavBar";
 import MessagesList from "./MessagesList";
 import { useState } from "react";
-import "../css/Profile.css";
 import { useEffect } from "react";
 import axios from "axios";
 
