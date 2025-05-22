@@ -188,6 +188,17 @@ exports.getPostUser = (req,res,next) => {
     ).catch(error => res.status(400).json({ error }));
 }
 
+exports.getPostProfile = (req,res,next) => {
+    Publication.find({userID : req.session.user.username})
+    .then(post =>{
+        if(post.length == 0){
+            return res.status(401).json({"message" : "Aucun post"})
+        }
+        return res.status(200).json({post})
+    }
+    ).catch(error => res.status(400).json({ error }));
+}
+
 exports.getPostAll = (req,res,next) => {
     place = req.params.forum == 'admin' ? process.env.FORUM_ADMIN : process.env.FORUM_PUBLIC
     Publication.find({forumID : place})

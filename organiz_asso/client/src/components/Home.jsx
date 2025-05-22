@@ -13,6 +13,7 @@ function Home() {
     const [isAuthChecked, setIsAuthChecked] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [message, setMessages] = useState([]);
+    const [user, setUser] = useState("")
 
     useEffect(() => {
     axios.get('/api/forum/public', { withCredentials: true })
