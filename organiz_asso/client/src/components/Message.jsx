@@ -1,20 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CommentForm from "./CommentForm.jsx";
 import "../css/Message.css";
 import { useNavigate } from "react-router-dom";
 
 function Message(props){
+    const { userID, contenu, msgID, date, heure, nombreLikes, forum, comments } = props;
 
-    const { userID, contenu, msgID, date, heure, nombreLikes, typeAdmin, comments } = props;
+    useEffect(() => console.log(comments),[])
 
     const [statutLike, setStatutLike] = useState(false);
 
-    const [commentaires, setCommentaires] = useState([]);
+    const [commentaires, setCommentaires] = useState(comments);
 
     const navigate = useNavigate();
 
     const handleLike = () => {
         setStatutLike(!statutLike);
+        /*if(statutLike){
+            nombreLikes+=1
+        }else{
+            nombreLikes-=1
+        }
+        */
     }
 
     const handleComment = (contenu) => {
@@ -23,8 +30,9 @@ function Message(props){
             auteur: "Moi",
             contenu: contenu
         };
-        setCommentaires([...commentaires, nouveauCommentaire]);
+        /*setCommentaires([...commentaires, nouveauCommentaire]);*/
     }
+    
 
     return (
         <div className="message">
@@ -34,7 +42,7 @@ function Message(props){
                         className="message-user clickable"
                         onClick={() => navigate(`/user/${userID}`)}
                     >
-                        {userID} {typeAdmin && <span className="admin-badge">[Admin]</span>}
+                        {userID} {/*{typeAdmin && <span className="admin-badge">[Admin]</span>} */}
                     </span>
 
                     <p className="message-date">{date} - {heure}</p>
@@ -58,8 +66,8 @@ function Message(props){
 
             <div className="commentaires">
                 {commentaires.map((c) => (
-                    <div key={c.id} className="commentaire">
-                        <p><strong>{c.auteur}</strong> : {c.contenu}</p>
+                    <div key={c._id} className="commentaire">
+                        <p><strong>{c.userID}</strong> : {c.content}</p>
                     </div>
                 ))}
             </div>

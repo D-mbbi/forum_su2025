@@ -157,7 +157,7 @@ exports.createPost = (req,res,next) => {
                     if(!ans){
                         return res.status(401).json({"message" : "post introuvable ou inexistant"}) 
                     }
-                    ans.comments.push(post._id)
+                    ans.comments.push(post)
                     ans.save().catch(err => console.log(err))
                 })
             }

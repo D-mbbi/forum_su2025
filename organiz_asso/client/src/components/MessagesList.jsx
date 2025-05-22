@@ -9,15 +9,14 @@ function MessagesList(props) {
         <div className="messagesLists">
             {message.map((msg) => (
                 <Message
-                    key={msg.id}
-                    msgID={msg.id}
-                    userID={msg.auteur}
-                    contenu={msg.contenu}
-                    date={msg.date}
-                    heure={msg.heure}
+                    key={msg._id}
+                    msgID={msg._id}
+                    userID={msg.userID}
+                    contenu={msg.content}
+                    date={  `${(new Date(msg.date)).getDay().toString().padStart(2, '0')}/${(new Date(msg.date)).getMonth().toString().padStart(2, '0')}/${(new Date(msg.date)).getFullYear().toString()}`   }
+                    heure={`${(new Date(msg.date)).getHours().toString().padStart(2, '0')}/${(new Date(msg.date)).getMinutes().toString().padStart(2, '0')}`}
                     nbLikes={msg.nbLikes || 0}
-                    typeAdmin={msg.isAdmin || false}
-                    comments={msg.comments || 0}
+                    comments={msg.comments || []}
                 />
             ))}
         </div>
