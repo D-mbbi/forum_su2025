@@ -4,7 +4,6 @@ import "../css/MessagesList.css";
 function MessagesList(props) {
 
     const { message } = props;
-    console.log(message)
 
     return (
         <div className="messagesLists">
