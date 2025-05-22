@@ -163,11 +163,11 @@ exports.createPost = (req,res,next) => {
             }
             res.status(201).json({"message" : "Post crée avec succès"})
         }
-        ).catch(error => res.status(400).json({ error }));
+        ).catch(error => res.status(500).json({ error }));
 }
 
 exports.getPostID = (req,res,next) => {
-    Publication.findById(req.body.id)
+    Publication.findById(req.query.id)
     .then(post =>{
         if(!post){
             return res.status(401).json({"message" : "post introuvable ou inexistant"})

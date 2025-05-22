@@ -8,7 +8,8 @@ function MessageForm(props){
         setContenu(event.target.value);
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault()
         if (contenu.trim() !== "") {
             props.onPost(contenu);
             setContenu("");

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../css/CommentForm.css";
 
+
 function CommentForm(props) {
 
     const [contenu, setContenu] = useState("");
@@ -9,7 +10,8 @@ function CommentForm(props) {
         setContenu(e.target.value);
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault()
         if (contenu.trim() !== "") {
             props.onComment(contenu);
             setContenu("");

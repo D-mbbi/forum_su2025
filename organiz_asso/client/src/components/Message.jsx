@@ -2,11 +2,27 @@ import { useState, useEffect } from "react";
 import CommentForm from "./CommentForm.jsx";
 import "../css/Message.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Message(props){
     const { userID, contenu, msgID, date, heure, nombreLikes, forum, comments } = props;
 
-    useEffect(() => console.log(comments),[])
+    const fetchCommentaires = () => {
+    axios.get('/api/post/getPost', {
+        withCredentials: true,
+        params: { id: msgID }
+    })
+    .then(res => {
+        setCommentaires(res.data.post.comments);
+    })
+    .catch((error) => {
+        console.error(error);
+    });
+};
+
+    useEffect(() => {
+        fetchCommentaires();
+    },[])
 
     const [statutLike, setStatutLike] = useState(false);
 
@@ -24,15 +40,13 @@ function Message(props){
         */
     }
 
-    const handleComment = (contenu) => {
-        const nouveauCommentaire = {
-            id: commentaires.length + 1,
-            auteur: "Moi",
-            contenu: contenu
-        };
-        /*setCommentaires([...commentaires, nouveauCommentaire]);*/
+    const handleComment = (content) => {
+        axios.post('/api/post/createPost',{'content' : content, forum: "682dd5eb504d8089a7c0d3fa", answeredPostID: msgID},{withCredentials: true })
+        .then(res => {
+            fetchCommentaires();
+        })
+        .catch(err => console.log(err))
     }
-    
 
     return (
         <div className="message">

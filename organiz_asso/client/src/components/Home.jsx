@@ -5,28 +5,34 @@ import "../css/Home.css";
 import NavBar from "./NavBar.jsx";
 import MessagesList from "./MessagesList.jsx";
 import MessageForm from "./MessageForm.jsx";
+import { useEffect } from "react";
 
 
 function Home() {
 
-    axios.get('/api/forum/public',{withCredentials: true})
-    .then()
-    .catch((error) =>{
-        if (error.response?.status === 401) {
-            navigate('/')
-        } else {
-            console.error(error);
-    }
-    });
+    const [isAuthChecked, setIsAuthChecked] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    useEffect(() => {
+    axios.get('/api/forum/public', { withCredentials: true })
+        .then(() => {
+            setIsAuthenticated(true);
+            setIsAuthChecked(true);
+        })
+        .catch((error) => {
+            if (error.response?.status === 401) {
+                navigate('/');
+            } else {
+                console.error(error);
+            }
+            setIsAuthChecked(true);
+        });
+}, []);
     
     const [message, setMessages] = useState([]);
-    axios.get('/api/post/getAll/public')
-    .then(res => {
-        setMessages(res.data.post)
-    })
-    .catch((error) => {
-        console.error(error)
-    })
+    
+    
+    
 
     const navigate = useNavigate();
 
@@ -41,6 +47,34 @@ function Home() {
         .catch(error => console.log(error))
     }
 
+    const handlePost = (content) => {
+        axios.post('/api/post/createPost',{'content' : content, forum: "682dd5eb504d8089a7c0d3fa"},{withCredentials: true})
+        .then(res => {
+            if(res.status == 500){
+                console.log(res.data)
+            }
+            else{
+                console.log(res.data)
+            }
+        })
+        .catch(err => console.log(err))
+    }
+
+    useEffect(() => {
+        axios.get('/api/post/getAll/public')
+    .then(res => {
+        setMessages(res.data.post)
+    })
+    .catch((error) => {
+        console.error(error)
+    })
+    }, [])
+
+    if (!isAuthChecked) {
+    return <div>Chargement...</div>; // ou spinner
+}
+
+
     return (
         <div className="home">
             <NavBar />
@@ -48,20 +82,8 @@ function Home() {
                 <h1 className="HomeHeader">Forum</h1>
                 <button onClick={handleLogout} className="logout-button">Se déconnecter</button>
 
-                {/* <MessageForm onPost={(contenu) => {
-                const nouveau = {
-                    id: message.length + 1,
-                    auteur: "Moi",
-                    contenu: contenu,
-                    date: "21/05/2025",
-                    heure: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-                    nbLikes: 0,
-                    isAdmin: false,
-                    comments: 0
-                };
-                setMessages([nouveau, ...message]);
-                }} />
-                */}
+                <MessageForm onPost={handlePost} />
+                
 
                 <MessagesList message={message} />
             </div>
