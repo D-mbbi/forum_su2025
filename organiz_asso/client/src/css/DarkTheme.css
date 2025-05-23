@@ -72,8 +72,25 @@ body {
 }
 
 .message-content {
-    margin-top: 0.5rem;
-    font-size: 1rem;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  text-align: justify;
+}
+
+.message-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* espace horizontal entre enfants */
+}
+
+
+.message-date {
+  margin-left: 8px;
+  color: #aaa;
+  font-size: 0.9rem;
 }
 
 /* Boutons */
@@ -120,6 +137,7 @@ textarea {
     background-color: #181818;
     border-left: 2px solid var(--accent-color);
     border-radius: 4px;
+    text-align: justify;
 }
 
 /* Responsive */
@@ -182,6 +200,20 @@ textarea {
   display: block;
 }
 
+.like-button {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  border: none;
+  background-color: var(--accent-color);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.like-button:hover {
+  background-color: var(--accent-hover);
+}
 
 
 
