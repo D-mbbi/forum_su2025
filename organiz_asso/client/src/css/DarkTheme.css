@@ -194,7 +194,7 @@ textarea {
     cursor: pointer;
     transition: background-color 0.3s;
     position: relative;
-    top: -3px;
+    top: -0.5px;
 }
 
 .avatar-navbar {
@@ -278,6 +278,10 @@ textarea {
 
 .delete-button:hover {
   color: red;
+}
+
+.message-form {
+  margin-bottom: 1rem;
 }
 
 .switch {
