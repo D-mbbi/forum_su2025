@@ -45,25 +45,20 @@ function Profile(){
     return (
        <div className="profile-page">
         <NavBar />
-        <h1>Mon profil</h1>
+        <h1 className="MonProfil">Mon profil</h1>
 
             <div className="profile-avatar-section">
                 <img
                     src={user.avatarUrl ? `http://localhost:8080${user.avatarUrl}` : "../assets/default-avatar.jpg"}
                     alt="Avatar"
-                    style={{
-                        width: 150,
-                        height: 150,
-                        borderRadius: "50%",
-                        objectFit: "cover",
-                        marginBottom: "1rem"
-                    }}
+                    className="profile-avatar"
                 />
-                <AvatarUploader onUploadSuccess={handleAvatarUpload} />
+                <AvatarUploader onUploadSuccess={handleAvatarUpload}/>
             </div>
 
-            <p><strong>Nom :</strong> {user.username}</p>
-        
+            <p className="nomProfil"><strong>Nom :</strong> {user.username}</p>
+
+            <hr className="profile-separator" />
             
             <div className="container">
                 <h1 className="ProfileHeader">Mes messages</h1>

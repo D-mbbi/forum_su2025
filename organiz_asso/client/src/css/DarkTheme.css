@@ -215,9 +215,39 @@ textarea {
   background-color: var(--accent-hover);
 }
 
+.profile-avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 
+.ProfileHeader {
+    display: flex;
+    justify-content: center;
+}
 
+.nomProfil {
+    display: flex;
+    justify-content: center;
+}
 
+.MonProfil {
+    display: flex;
+    justify-content: center;
+}
 
+.profile-avatar-section {
+  text-align: center;
+}
 
-
+.profile-separator {
+  width: 90%;
+  margin: 2rem auto;
+  border: none;
+  border-top: 1px solid #444;
+}
