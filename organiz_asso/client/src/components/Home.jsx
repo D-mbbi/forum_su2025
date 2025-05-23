@@ -116,13 +116,13 @@ function Home({admin}) {
         <div className="home">
             <NavBar onSearch={handleSearch} isAdminUser={isAdminUser}/>
             <div className="container">
-                <h1 className="HomeHeader">Forum</h1>
+                <h1 className="HomeHeader">Forum public</h1>
                 <button onClick={handleLogout} className="logout-button">Se déconnecter</button>
 
                 <MessageForm onPost={handlePost} />
                 
 
-                <MessagesList message={message} isAdminForum={false}/>
+                <MessagesList message={message} isAdminForum={false} user_viewer_admin={isAdminUser}/>
             </div>
         </div>
     );

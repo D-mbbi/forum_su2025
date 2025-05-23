@@ -25,6 +25,7 @@ function UserProfile(){
     }, [user]);
 
     useEffect(() => {
+        if(currentUser)
         axios.get(`/api/post/getUserPost/${id}`, {withCredentials : true})
         .then( res => {
             if(res.data){
@@ -33,7 +34,7 @@ function UserProfile(){
         }
         )
         .catch(err => console.error(err))
-    },[id])
+    },[id,currentUser])
 
     const toggleAdminStatus = () => {
   axios.put(`/api/user/${id}/setStatus`, {
@@ -59,7 +60,7 @@ function UserProfile(){
     {user.admin ? 'Révoquer les droits admin' : 'Promouvoir en admin'}
   </button>
 )}
-                <MessagesList message={userMessages} />
+                <MessagesList message={userMessages} user_viewer_admin={currentUser.admin}/>
             </div>
         </div>
     );

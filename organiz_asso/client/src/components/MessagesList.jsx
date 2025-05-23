@@ -3,7 +3,7 @@ import axios from "axios";
 
 function MessagesList(props) {
 
-    const { message, profil} = props;
+    const { message, profil, user_viewer_admin} = props;
 
     const handleDeleteMessage = (id) => {
         if (!window.confirm("Supprimer ce message ?")) return;
@@ -15,7 +15,7 @@ function MessagesList(props) {
     return (
         <div className="messagesLists">
             {!message || message.length == 0 ? 'Aucun message' : [...message].reverse().map((msg) => (
-                !msg.answeredPostID ?
+                !msg.answeredPostID && (user_viewer_admin || msg.forumID !== '682dd5a1504d8089a7c0d3f7')?
                 <Message
                     key={msg._id}
                     msgID={msg._id}

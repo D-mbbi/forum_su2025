@@ -64,7 +64,7 @@ function Profile(){
             
             <div className="container">
                 <h1 className="ProfileHeader">Mes messages</h1>
-                <MessagesList message={message} profil={true} />
+                <MessagesList message={message} profil={true} user_viewer_admin={user.admin}/>
 
             </div>
         </div> 
