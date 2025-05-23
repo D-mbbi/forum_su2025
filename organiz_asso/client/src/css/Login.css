@@ -1,0 +1,104 @@
+
+.login,.signup{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login_container,.signup_container {
+    border-radius: 33px;
+    text-align: center;
+    align-items: center;
+    width: 100%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+
+.LoginForm,.SignUpForm{
+    width: 400px;
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    text-align: left;
+}
+
+h1{
+    font-family: 2em;
+    text-align: center;
+    margin: 30px 0px;
+}
+
+.LoginInput, .SignUpInput{
+    position: relative;
+    width: 400px;
+    margin: 30px 0px;
+    border-bottom: 2px solid white;
+}
+
+.LoginInput label, .SignUpInput label{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 1em;
+    pointer-events: none;
+    transition: .3s;
+}
+
+.password_input{
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    padding: 0 35px 0 5px;
+    color : white;
+}
+
+.LoginInput input:focus~label,
+.LoginInput input:valid~label,
+.SignUpInput input:focus~label,
+.SignUpInput input:valid~label{
+    top: -5px
+}
+
+.loginButton{
+    width: 100%;
+    height: 40px;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    margin-bottom: 30px;
+}
+
+.loginButton:hover{
+    transform: scale(110%);
+    transition: .3s;
+    color: white;
+    background-color: black;
+}
+
+.lP{
+    font-size: .9em;
+    text-align: center;
+    margin: 25px 0 10px;
+}
+
+.lP a{
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.lP a:hover{
+    text-decoration: underline;
+}

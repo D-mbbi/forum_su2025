@@ -1,0 +1,96 @@
+{
+  "$jsonSchema": {
+    "bsonType": "object",
+    "required": [
+      "_id",
+      "__v",
+      "answeredPostID",
+      "comments",
+      "content",
+      "date",
+      "forumID",
+      "likes",
+      "title",
+      "userID"
+    ],
+    "properties": {
+      "_id": {
+        "bsonType": "objectId"
+      },
+      "__v": {
+        "bsonType": "int"
+      },
+      "answeredPostID": {
+        "bsonType": "string"
+      },
+      "comments": {
+        "bsonType": "array",
+        "items": {
+          "bsonType": "object",
+          "properties": {
+            "_id": {
+              "bsonType": "objectId"
+            },
+            "__v": {
+              "bsonType": "int"
+            },
+            "answeredPostID": {
+              "bsonType": "string"
+            },
+            "comments": {
+              "bsonType": "array"
+            },
+            "content": {
+              "bsonType": "string"
+            },
+            "date": {
+              "bsonType": "date"
+            },
+            "forumID": {
+              "bsonType": "string"
+            },
+            "likes": {
+              "bsonType": "int"
+            },
+            "title": {
+              "bsonType": "string"
+            },
+            "userID": {
+              "bsonType": "string"
+            }
+          },
+          "required": [
+            "_id",
+            "__v",
+            "answeredPostID",
+            "comments",
+            "content",
+            "date",
+            "forumID",
+            "likes",
+            "title",
+            "userID"
+          ]
+        }
+      },
+      "content": {
+        "bsonType": "string"
+      },
+      "date": {
+        "bsonType": "date"
+      },
+      "forumID": {
+        "bsonType": "string"
+      },
+      "likes": {
+        "bsonType": "int"
+      },
+      "title": {
+        "bsonType": "string"
+      },
+      "userID": {
+        "bsonType": "string"
+      }
+    }
+  }
+}

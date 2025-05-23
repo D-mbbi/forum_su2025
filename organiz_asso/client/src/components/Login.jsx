@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import '../css/Login.css'
 
 function Login(){
 
@@ -40,19 +41,19 @@ function Login(){
 
     return (
         <div className="login">
-            <div className="container">
+            <div className="login_container">
                 <h1 className="LoginHeader" id="LoginHeader">Login</h1>
                 <form className='LoginForm' onSubmit={handleSubmit}>
                     <div className="LoginInput">
-                        <input type='text' id='Username' name="Username" value={username} onChange={U_handleChange} required/>
+                        <input className='password_input' type='text' id='Username' name="Username" value={username} onChange={U_handleChange} required/>
                         <label htmlFor='Username'>Username</label>
                     </div>
                     <div className="LoginInput">
-                        <input type='password' name='Password' value={password} onChange={P_handleChange} required/>
+                        <input className='password_input' type='password' name='Password' value={password} onChange={P_handleChange} required/>
                         <label htmlFor='Password'>Mot de passe</label>
                     </div>
                     <button className='loginButton' type='submit'>Se connecter</button>
-                    <p>Pas de compte ? <Link to="/signup">Créer un compte</Link></p>
+                    <p className="lP">Pas de compte ? <Link to="/signup">Créer un compte</Link></p>
                 </form>
             </div>
         </div>

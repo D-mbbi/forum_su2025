@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import CommentForm from "./CommentForm.jsx";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Trash2 } from 'react-feather';
 
 function Message(props){
-    const { userID, contenu, msgID, date, heure, nombreLikes, forum, comments } = props;
+    const { userID, contenu, msgID, date, heure, nombreLikes, forum, comments, canDelete, onDelete } = props;
 
     const fetchCommentaires = () => {
     axios.get('/api/post/getPost', {
@@ -86,6 +87,12 @@ function Message(props){
 
                     <p className="message-date">{date} - {heure}</p>
                 </div>
+                {canDelete && (
+                    <button className="delete-button" onClick={() => onDelete(msgID)} title="Supprimer le message">
+                        <Trash2 size={18} />
+                    </button>
+                )}
+
             </div>
 
             <div className="message-content">

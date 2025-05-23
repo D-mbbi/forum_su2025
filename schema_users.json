@@ -1,0 +1,33 @@
+{
+  "$jsonSchema": {
+    "bsonType": "object",
+    "required": [
+      "_id",
+      "__v",
+      "admin",
+      "avatarUrl",
+      "password",
+      "username"
+    ],
+    "properties": {
+      "_id": {
+        "bsonType": "objectId"
+      },
+      "__v": {
+        "bsonType": "int"
+      },
+      "admin": {
+        "bsonType": "bool"
+      },
+      "avatarUrl": {
+        "bsonType": "string"
+      },
+      "password": {
+        "bsonType": "string"
+      },
+      "username": {
+        "bsonType": "string"
+      }
+    }
+  }
+}

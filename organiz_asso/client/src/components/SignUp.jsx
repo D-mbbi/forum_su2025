@@ -23,7 +23,7 @@ function SignUp(){
             setValidForm(false);
         }else{
             setValidForm(true);
-            axios.post('/api/auth/signup', {"username": username, "password": password}).then(res => console.log(res.data));
+            axios.post('/api/auth/signup', {"username": username, "password": password},{withCredentials : true}).then(res => console.log(res.data));
         }
 
     }
@@ -37,23 +37,23 @@ function SignUp(){
     
     return (
     <div className="signup">
-        <div className="container">
+        <div className="signup_container">
             <h1 className="SignUpHeader" id="SignUpHeader">SignUp</h1>
             <form method='POST' className='SignUpForm' onSubmit={handleSubmit}>
                 <div className="SignUpInput">
-                    <input type='text' id='Username' name="Username" value={username} onChange={U_handleChange} required/>
+                    <input type='text' className='password_input' id='Username' name="Username" value={username} onChange={U_handleChange} required/>
                     <label htmlFor='Username'>Username</label>
                 </div>
                 <div className="SignUpInput">
-                    <input type='password' name='Password' value={password} onChange={P_handleChange} required/>
+                    <input type='password' className='password_input' name='Password' value={password} onChange={P_handleChange} required/>
                     <label htmlFor='Password'>Mot de passe</label>
                 </div>
                 <div className="SignUpInput">
-                    <input type='password' name='Password2' value={password2} onChange={P2_handleChange} required/>
+                    <input type='password' className='password_input' name='Password2' value={password2} onChange={P2_handleChange} required/>
                     <label htmlFor='Password2'>Confirmer le mot de passe</label>
                 </div>
                 <button className='loginButton' type='submit'>SignUp</button>
-            <p>Déja inscrit ? <Link to="/">Se connecter</Link></p>
+            <p className='lP'>Déja inscrit ? <Link to="/">Se connecter</Link></p>
         </form>
     </div>
     </div>

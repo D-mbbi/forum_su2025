@@ -13,7 +13,8 @@ exports.default = (req,res,next) => {
 }
 
 exports.signup = (req, res, next) => {
-  bcrypt.hash(req.body.password, 10)
+    if(!req.session.user){
+    bcrypt.hash(req.body.password, 10)
     .then(hash => {
         const user = new User({
         username: req.body.username,
@@ -24,6 +25,10 @@ exports.signup = (req, res, next) => {
         .catch(error => res.status(400).json({ error }));
     })
     .catch(error => res.status(500).json({ error }));
+    }
+    else{
+        res.status(401).json({"message" : "Déja connecté"})
+    }
 };
 
 exports.login = (req, res, next) => {
@@ -104,15 +109,17 @@ exports.getProfile = (req, res, next) => {
 }
 
 exports.setStatus =  async (req, res, next) => {
-    await User.findOne({username: req.body.editedUser})
+    await User.findOne({username: req.params.user})
     .then(user => {
         if(!user){
             return res.status(401).json({"message" : "Utilisateur introuvable"})
         }
+        if(req.session.user.username == user.username){
+            return res.status(401).json({"message" : "Vous ne pouvez pas changer votre propre status"})
+        }
         user.admin = req.body.admin;
         user.save()
         .catch(err => console.log(err));
-        req.session.user = user;
 
         return res.status(200).json({"message" : "Modification éffectuée avec succès"})
     })

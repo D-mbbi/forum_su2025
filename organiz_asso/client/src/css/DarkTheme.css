@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css?family=Poppins');
 :root {
     --background-color: #121212;
     --card-bg: #1e1e1e;
@@ -15,7 +15,7 @@
 
 body {
     margin: 0;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Poppins';
     background-color: var(--background-color);
     color: var(--text-color);
 }
@@ -98,7 +98,7 @@ button:hover {
 }
 
 /* Formulaires */
-input[type="text"], input[type="password"], textarea {
+textarea {
     width: 100%;
     padding: 0.5rem;
     margin-top: 0.5rem;
@@ -144,4 +144,17 @@ textarea {
 .message-user-meta {
   display: flex;
   align-items: center;
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  float: right;
+  margin-left: auto;
+}
+
+.delete-button:hover {
+  color: red;
 }

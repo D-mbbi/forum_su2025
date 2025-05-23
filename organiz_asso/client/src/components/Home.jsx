@@ -12,6 +12,7 @@ function Home() {
     const [isAuthChecked, setIsAuthChecked] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [message, setMessages] = useState([]);
+    const [newMessage, setNewMess] = useState(false);
     const [user, setUser] = useState("")
 
     useEffect(() => {
@@ -53,6 +54,7 @@ function Home() {
         .then(res => {
             if(res.status == 500){
                 console.log(res.data)
+                setNewMess(true)
             }
             else{
                 console.log(res.data)
@@ -62,11 +64,14 @@ function Home() {
     }
 
     const handleSearch = (query) => {
+        console.log("search : "+query)
         axios.get('api/post/search',{withCredentials : true, params : {'query' : query}})
         .then(res => {
             if(res.status != 200){
                 console.error(res.data)
             }else{
+                console.log("results : ")
+                console.log(res.data)
                 setMessages(res.data.posts)
             }
         })
@@ -74,14 +79,15 @@ function Home() {
     }
 
     useEffect(() => {
-        axios.get('/api/post/getAll/public')
+        return () => axios.get('/api/post/getAll/public')
     .then(res => {
         setMessages(res.data.post)
+        console.log("refresh, newMessage: " + newMessage)
     })
     .catch((error) => {
         console.error(error)
     })
-    }, [{message}])
+    }, [newMessage])
 
     if (!isAuthChecked) {
     return <div>Chargement...</div>; // ou spinner
