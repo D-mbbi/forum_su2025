@@ -40,6 +40,7 @@ function Message(props){
     },[])
 
     const [statutLike, setStatutLike] = useState(false);
+    const [likeCount, setLikeCount] = useState(nombreLikes || 0);
 
     const [commentaires, setCommentaires] = useState(comments);
 
@@ -48,14 +49,13 @@ function Message(props){
     const navigate = useNavigate();
 
     const handleLike = () => {
-        setStatutLike(!statutLike);
-        /*if(statutLike){
-            nombreLikes+=1
-        }else{
-            nombreLikes-=1
-        }
-        */
+    if (!statutLike) {
+        setLikeCount(likeCount + 1);
+    } else {
+        setLikeCount(likeCount - 1);
     }
+    setStatutLike(!statutLike);
+    };
 
     const handleComment = (content) => {
         axios.post('/api/post/createPost',{'content' : content, forum: "682dd5eb504d8089a7c0d3fa", answeredPostID: msgID},{withCredentials: true })
@@ -101,7 +101,7 @@ function Message(props){
 
             <div className="message-actions">
                 <button className="like-button" onClick={handleLike}>
-                    {statutLike ? "❤️" : "🤍"} {nombreLikes + (statutLike ? 1 : 0)}
+                    {statutLike ? "❤️" : "🤍"} {likeCount}
                 </button>
                 <span className="comments-count">
                     {commentaires.length} {commentaires.length === 1 ? "commentaire" : "commentaires"}

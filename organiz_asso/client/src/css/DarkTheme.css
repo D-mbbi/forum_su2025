@@ -72,8 +72,25 @@ body {
 }
 
 .message-content {
-    margin-top: 0.5rem;
-    font-size: 1rem;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  text-align: justify;
+}
+
+.message-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* espace horizontal entre enfants */
+}
+
+
+.message-date {
+  margin-left: 8px;
+  color: #aaa;
+  font-size: 0.9rem;
 }
 
 /* Boutons */
@@ -120,6 +137,7 @@ textarea {
     background-color: #181818;
     border-left: 2px solid var(--accent-color);
     border-radius: 4px;
+    text-align: justify;
 }
 
 /* Responsive */
@@ -146,6 +164,93 @@ textarea {
   align-items: center;
 }
 
+/* Alignement correct de la barre de recherche et du bouton */
+.searchBar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.searchInput {
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    height: 38px;
+    border-radius: 6px;
+    border: 1px solid var(--input-border);
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    box-sizing: border-box;
+}
+
+.searchButton {
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: relative;
+    top: -3px;
+}
+
+.avatar-navbar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.like-button {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  border: none;
+  background-color: var(--accent-color);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.like-button:hover {
+  background-color: var(--accent-hover);
+}
+
+.profile-avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ProfileHeader {
+    display: flex;
+    justify-content: center;
+}
+
+.nomProfil {
+    display: flex;
+    justify-content: center;
+}
+
+.MonProfil {
+    display: flex;
+    justify-content: center;
+}
+
+.profile-avatar-section {
+  text-align: center;
+}
+
+.profile-separator {
+  width: 90%;
+  margin: 2rem auto;
+  border: none;
+  border-top: 1px solid #444;
+}
 .delete-button {
   background: none;
   border: none;
