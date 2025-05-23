@@ -56,7 +56,9 @@ function Profile(){
                 <AvatarUploader onUploadSuccess={handleAvatarUpload}/>
             </div>
 
-            <p className="nomProfil"><strong>Nom :</strong> {user.username}</p>
+            <p className="nomProfil">
+                <strong>Nom :</strong>&nbsp;{user.username}
+            </p>
 
             <hr className="profile-separator" />
             
