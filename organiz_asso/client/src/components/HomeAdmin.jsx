@@ -8,7 +8,7 @@ import MessageForm from "./MessageForm.jsx";
 import { useEffect } from "react";
 
 
-function Home({admin}) {
+function HomeAdmin({admin}) {
 
     const [isAuthChecked, setIsAuthChecked] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -17,7 +17,7 @@ function Home({admin}) {
     const [user, setUser] = useState("")
 
     useEffect(() => {
-    axios.get('/api/forum/public', { withCredentials: true })
+    axios.get('/api/forum/admin', { withCredentials: true })
         .then(res => {
             console.log(res.status)
             setIsAuthenticated(true);
@@ -27,6 +27,9 @@ function Home({admin}) {
             if (error.response?.status === 401) {
                 console.log(error)
                 navigate('/');
+            }else if((error.response?.status === 423)){
+                alert("Vous n'avez pas accès à ce forum")
+                navigate('/home')
             }else {
                 console.error(error);
             }
@@ -52,6 +55,7 @@ function Home({admin}) {
     
     
     
+    
 
     const navigate = useNavigate();
 
@@ -67,7 +71,7 @@ function Home({admin}) {
     }
 
     const handlePost = (content) => {
-        axios.post('/api/post/createPost',{'content' : content, forum: "682dd5eb504d8089a7c0d3fa"},{withCredentials: true})
+        axios.post('/api/post/createPost',{'content' : content, forum: "682dd5a1504d8089a7c0d3f7"},{withCredentials: true})
         .then(res => {
             if(res.status == 500){
                 console.log(res.data)
@@ -82,7 +86,7 @@ function Home({admin}) {
 
     const handleSearch = (query) => {
         console.log("search : "+query)
-        axios.get('api/post/search',{withCredentials : true, params : {'query' : query, 'admin' : false}})
+        axios.get('/api/post/search',{withCredentials : true, params : {'query' : query, 'admin' : true}})
         .then(res => {
             if(res.status != 200){
                 console.error(res.data)
@@ -96,7 +100,7 @@ function Home({admin}) {
     }
 
     useEffect(() => {
-        axios.get('/api/post/getAll/public')
+        axios.get('/api/post/getAll/admin')
     .then(res => {
         console.log(res.status)
         setMessages(res.status == 500 ? [] : res.data.post)
@@ -122,10 +126,10 @@ function Home({admin}) {
                 <MessageForm onPost={handlePost} />
                 
 
-                <MessagesList message={message} isAdminForum={false}/>
+                <MessagesList message={message} isAdminForum={true}/>
             </div>
         </div>
     );
 }
 
-export default Home;
+export default HomeAdmin;

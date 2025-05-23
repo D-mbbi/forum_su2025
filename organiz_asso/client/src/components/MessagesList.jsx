@@ -3,17 +3,18 @@ import axios from "axios";
 
 function MessagesList(props) {
 
-    const { message, profil } = props;
+    const { message, profil} = props;
 
     const handleDeleteMessage = (id) => {
         if (!window.confirm("Supprimer ce message ?")) return;
         axios.delete(`/api/post/deletePost/${id}`, {withCredentials: true})
         .catch(err => console.error(err));
     };
+    console.log(message)
 
     return (
         <div className="messagesLists">
-            {message.length == 0 ? 'Aucun message' : [...message].reverse().map((msg) => (
+            {!message || message.length == 0 ? 'Aucun message' : [...message].reverse().map((msg) => (
                 !msg.answeredPostID ?
                 <Message
                     key={msg._id}
@@ -26,6 +27,7 @@ function MessagesList(props) {
                     comments={msg.comments || []}
                     canDelete={profil}
                     onDelete={(id) => handleDeleteMessage(id)}
+                    isAdminForum={msg.forumID == '682dd5a1504d8089a7c0d3f7'}
                 /> : null
             ))}
         </div>

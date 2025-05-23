@@ -138,7 +138,7 @@ exports.isAdmin = (req,res,next) => {
 exports.getForum = (req,res,next) => {
     if(req.params.type == "admin"){
         if(!req.session.user.admin){
-            return res.status(401).json({"message": "Vous devez être administrateur pour faire cela"})
+            return res.status(423).json({"message": "Vous devez être administrateur pour faire cela"})
         }
         Forum.findById(process.env.FORUM_ADMIN)
         .then(forum => {
@@ -238,6 +238,7 @@ exports.getPostAll = (req,res,next) => {
 exports.search = (req,res,next) => {
     // Traitement de la recherche (de "mot1 mot2" => "\bmot1\b|\bmot2\b")
     var query = req.query.query;
+    var forum = (req.query.admin == 'true' ? process.env.FORUM_ADMIN : process.env.FORUM_PUBLIC)
     query = query.split(" ");
     //var impair = (query.length % 2 == 1)
     for(word in query){
@@ -247,7 +248,7 @@ exports.search = (req,res,next) => {
     query = "(".concat(query).concat(")")
     // ----------
 
-    Publication.find({"$or": [ {"content" : RegExp(query,'i')}, {"title" : RegExp(query,'i')}, {"userID" : RegExp(query,'i')} ]})
+    Publication.find({"$or": [ {"content" : RegExp(query,'i')}, {"title" : RegExp(query,'i')}, {"userID" : RegExp(query,'i')} ], "forumID" : forum})
     .then(posts => {
         if(posts == []){
             return res.status(401).json({"message" : "Aucun post n'a été trouvé"})

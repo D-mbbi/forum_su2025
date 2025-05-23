@@ -6,6 +6,7 @@ import SignUp from './components/SignUp.jsx'
 import Home from "./components/Home.jsx"
 import Profile from "./components/Profile.jsx";
 import UserProfile from "./components/UserProfile.jsx";
+import HomeAdmin from "./components/HomeAdmin.jsx";
 import './css/DarkTheme.css'
 
 
@@ -15,7 +16,8 @@ createRoot(document.getElementById('root')).render(
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/home" element={<Home admin={false}/>} />
+        <Route path="/home/admin" element={<HomeAdmin admin={true}/>} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/user/:id" element={<UserProfile />} />
       </Routes>
