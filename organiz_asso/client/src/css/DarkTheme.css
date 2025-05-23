@@ -145,3 +145,47 @@ textarea {
   display: flex;
   align-items: center;
 }
+
+/* Alignement correct de la barre de recherche et du bouton */
+.searchBar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.searchInput {
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    height: 38px;
+    border-radius: 6px;
+    border: 1px solid var(--input-border);
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    box-sizing: border-box;
+}
+
+.searchButton {
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: relative;
+    top: -3px;
+}
+
+.avatar-navbar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+
+
+
+
+
+
+
