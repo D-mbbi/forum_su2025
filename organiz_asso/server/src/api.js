@@ -311,4 +311,25 @@ const storage = multer.diskStorage({
   }
 });
 
+exports.toggleLikePost = (req, res, next) => {
+    const postId = req.params.id;
+
+    Publication.findById(postId)
+        .then(post => {
+            if (!post) {
+                return res.status(404).json({ message: "Post non trouvé" });
+            }
+
+            // Si le post est déjà liké (venant du client), on décrémente sinon on incrémente
+            const increment = req.body.increment === true ? 1 : -1;
+            post.likes += increment;
+            post.likes = Math.max(0, post.likes); // éviter les likes négatifs
+
+            post.save()
+                .then(() => res.status(200).json({ likes: post.likes }))
+                .catch(error => res.status(500).json({ error }));
+        })
+        .catch(error => res.status(500).json({ error }));
+};
+
 exports.upload = multer({ storage });

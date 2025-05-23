@@ -48,14 +48,31 @@ function Message(props){
 
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const liked = localStorage.getItem(`liked_${msgID}`);
+        setStatutLike(liked === "true");
+        setLikeCount(nombreLikes || 0);
+    }, [msgID, nombreLikes]);
+
     const handleLike = () => {
-    if (!statutLike) {
-        setLikeCount(likeCount + 1);
-    } else {
-        setLikeCount(likeCount - 1);
-    }
-    setStatutLike(!statutLike);
+        axios.patch(`/api/post/likePost/${msgID}`, {
+            increment: !statutLike
+        }, { withCredentials: true })
+        .then(res => {
+            setLikeCount(res.data.likes);
+            const newStatut = !statutLike;
+            setStatutLike(newStatut);
+
+    
+            if (newStatut) {
+                localStorage.setItem(`liked_${msgID}`, "true");
+            } else {
+                localStorage.removeItem(`liked_${msgID}`);
+            }
+        })
+        .catch(err => console.error(err));
     };
+
 
     const handleComment = (content) => {
         axios.post('/api/post/createPost',{'content' : content, forum: "682dd5eb504d8089a7c0d3fa", answeredPostID: msgID},{withCredentials: true })
