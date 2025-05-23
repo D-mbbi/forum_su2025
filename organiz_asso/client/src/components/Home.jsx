@@ -81,7 +81,7 @@ function Home() {
     .catch((error) => {
         console.error(error)
     })
-    }, [])
+    }, [{message}])
 
     if (!isAuthChecked) {
     return <div>Chargement...</div>; // ou spinner

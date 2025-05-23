@@ -2,6 +2,7 @@ import { useParams } from "react-router";
 import NavBar from "./NavBar";
 import MessagesList from "./MessagesList";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 function UserProfile(){
 
@@ -10,31 +11,15 @@ function UserProfile(){
     const [userMessages, setUserMessages] = useState([]);
 
     useEffect(() => {
-        // simulation : filtre local ou appel API plus tard
-        const messagesSimules = [
-            {
-                id: 201,
-                auteur: id,
-                contenu: "Message 1 de " + id,
-                date: "20/05/2025",
-                heure: "12:00",
-                nombreLikes: 2,
-                isAdmin: false,
-                comments: 1
-            },
-            {
-                id: 202,
-                auteur: id,
-                contenu: "Deuxième post de " + id,
-                date: "21/05/2025",
-                heure: "10:32",
-                nombreLikes: 5,
-                isAdmin: false,
-                comments: 0
+        axios.get(`/api/post/getUserPost/${id}`, {withCredentials : true})
+        .then( res => {
+            if(res.data){
+                setUserMessages(res.data.post)
             }
-        ];
-        setUserMessages(messagesSimules);
-    }, [id]);
+        }
+        )
+        .catch(err => console.error(err))
+    },[id])
 
     return (
         <div className="user-profile">

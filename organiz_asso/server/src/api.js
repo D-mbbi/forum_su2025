@@ -1,8 +1,10 @@
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 const User = require('./entities/users');
 const bcrypt = require('bcrypt');
 const Forum = require('./entities/forum');
-const Publication = require('./entities/publication')
-const session = require('express-session');
+const Publication = require('./entities/publication');
 
 
 
@@ -74,7 +76,22 @@ exports.logout = (req,res,next) => {
 exports.getUser = (req, res, next) => {
     if(req.session.user){
         
-        User.findOne({ username: req.body.username })
+        User.findOne({ username: req.query.username })
+        .then(user => {
+            if(!user){
+                return res.status(401).json({"message" : "Utilisateur introuvable"})
+            }
+            return res.status(200).json({user});
+        })
+        .catch(err => console.log(err))
+    }
+
+}
+
+exports.getProfile = (req, res, next) => {
+    if(req.session.user){
+        
+        User.findOne({ username: req.session.user.username })
         .then(user => {
             if(!user){
                 return res.status(401).json({"message" : "Utilisateur introuvable"})
@@ -212,7 +229,7 @@ exports.getPostAll = (req,res,next) => {
 }
 
 exports.search = (req,res,next) => {
-    // Traitement de la recherche (de "mot1 mot2" => "(mot1)*(mot2)")
+    // Traitement de la recherche (de "mot1 mot2" => "\bmot1\b|\bmot2\b")
     var query = req.query.query;
     query = query.split(" ");
     //var impair = (query.length % 2 == 1)
@@ -223,7 +240,7 @@ exports.search = (req,res,next) => {
     query = "(".concat(query).concat(")")
     // ----------
 
-    Publication.find({"$or": [ {"content" : RegExp(query,'i')}, {"title" : RegExp(query,'i')} ]})
+    Publication.find({"$or": [ {"content" : RegExp(query,'i')}, {"title" : RegExp(query,'i')}, {"userID" : RegExp(query,'i')} ]})
     .then(posts => {
         if(posts == []){
             return res.status(401).json({"message" : "Aucun post n'a été trouvé"})
@@ -251,12 +268,39 @@ exports.deletePost = (req,res,next) => {
     .catch(err => res.status(500).json(err))
 }
 
-exports.answerPost = (req,res,next) => {
-    Publication.findById(req.params.id)
-    .then(post => {
-        if(!post){
-            return res.status(400).json({message : "Post introuvable"})
-        }
-        post
-    })
+exports.setAvatar = (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: 'Aucun fichier fourni.' });
+  }
+
+  const imageUrl = `/uploads/avatars/${req.file.filename}`;
+
+  User.findOne({username : req.session.user.username})
+  .then(user => {
+    if(user){
+        user.avatarUrl = imageUrl;
+        user.save()
+        .catch(err => console.log(err))
+    }else{
+        return res.status(500).json({message : "User introuvable"})
+    }
+  }
+  )
+
+  res.status(200).json({ avatarUrl: imageUrl });
 }
+
+// Configuration de Multer (dossier de stockage + nom du fichier)
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const uploadDir = path.join(__dirname, '/uploads/avatars');
+    fs.mkdirSync(uploadDir, { recursive: true });
+    cb(null, uploadDir);
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, `${req.session.user._id}-${uniqueSuffix}.jpg`); // basé sur l'utilisateur connecté
+  }
+});
+
+exports.upload = multer({ storage });

@@ -1,3 +1,5 @@
+const url = require('url')
+const path = require('path')
 const express = require('express');
 const mongoose = require("mongoose");
 const authRoutes = require('./routers/auth');
@@ -20,6 +22,7 @@ mongoose.connect(
 
 const app = express();
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(cors({
   origin: process.env.CLIENT_URL,
   credentials: true

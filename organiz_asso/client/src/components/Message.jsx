@@ -17,7 +17,22 @@ function Message(props){
     .catch((error) => {
         console.error(error);
     });
-};
+    
+    };
+
+    const fetchAvatar = () => {
+        axios.get('/api/user/getUser', {withCredentials : true, params : {username : userID}})
+        .then(res => {
+        setAvatarUrl(res.data.user.avatarUrl);
+    })
+    .catch((error) => {
+        console.error(error);
+    });
+    }
+
+    useEffect(() => {
+        fetchAvatar();
+    },[])
 
     useEffect(() => {
         fetchCommentaires();
@@ -26,6 +41,8 @@ function Message(props){
     const [statutLike, setStatutLike] = useState(false);
 
     const [commentaires, setCommentaires] = useState(comments);
+
+    const [avatarUrl, setAvatarUrl] = useState("")
 
     const navigate = useNavigate();
 
@@ -47,10 +64,19 @@ function Message(props){
         .catch(err => console.log(err))
     }
 
+    
+
+
+
     return (
         <div className="message">
             <div className="message-header">
-                <div className="message-meta">
+                <div className="message-user-meta">
+                    <img
+                    src={avatarUrl ? `http://localhost:8080${avatarUrl}` : "../assets/default-avatar.jpg"}
+                    alt="avatar"
+                    className="avatar-small"
+                    />
                     <span
                         className="message-user clickable"
                         onClick={() => navigate(`/user/${userID}`)}
